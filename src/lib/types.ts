@@ -30,7 +30,9 @@ export interface Project {
 export interface Team {
   id: string;
   name: string;
+  description: string;
   project_id: string;
+  deadline: string;
   created_at: string;
   project?: Project;
   members?: TeamMember[];
@@ -44,6 +46,27 @@ export interface TeamMember {
   created_at: string;
   user?: User;
   student_profile?: StudentProfile;
+}
+
+export interface TeamChat {
+  id: string;
+  team_id: string;
+  user_id: string;
+  message: string;
+  created_at: string;
+  user?: User;
+}
+
+export interface TeamTask {
+  id: string;
+  team_id: string;
+  title: string;
+  description: string;
+  status: 'pending' | 'in_progress' | 'completed';
+  assigned_to: string;
+  deadline: string;
+  created_at: string;
+  assignee?: User;
 }
 
 export interface Comment {
@@ -82,6 +105,16 @@ export interface Database {
         Row: TeamMember;
         Insert: Omit<TeamMember, 'id' | 'created_at'>;
         Update: Partial<Omit<TeamMember, 'id' | 'created_at'>>;
+      };
+      team_chats: {
+        Row: TeamChat;
+        Insert: Omit<TeamChat, 'id' | 'created_at'>;
+        Update: Partial<Omit<TeamChat, 'id' | 'created_at'>>;
+      };
+      team_tasks: {
+        Row: TeamTask;
+        Insert: Omit<TeamTask, 'id' | 'created_at'>;
+        Update: Partial<Omit<TeamTask, 'id' | 'created_at'>>;
       };
       comments: {
         Row: Comment;
